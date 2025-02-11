@@ -1,10 +1,12 @@
 #ifndef HUFFMAN
 #define HUFFMAN
 
-struct Node {
-	char character;
+typedef struct Node {
+	char value;
 	int freq;
-	struct Node* l, * r;
-};
+	struct Node *left, *right;
+}NODE;
+
+void createNode(const NODE* mas,int rel);
 
 #endif

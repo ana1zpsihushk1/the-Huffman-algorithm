@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base (main).cpp" />
+    <ClCompile Include="Huffman`s header.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Huffman`s header.h" />

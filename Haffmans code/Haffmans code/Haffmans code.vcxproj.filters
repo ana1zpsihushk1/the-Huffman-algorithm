@@ -18,6 +18,9 @@
     <ClCompile Include="Base (main).cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Huffman`s header.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Huffman`s header.h">
