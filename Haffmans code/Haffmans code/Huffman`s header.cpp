@@ -2,7 +2,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_TREE_SIZE 256
 
-void createNode(const NODE* mas, int rel)
+void readFile(const char* infile)
 {
+
 }
