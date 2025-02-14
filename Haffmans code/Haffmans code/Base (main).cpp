@@ -23,3 +23,4 @@ int main()
 	fclose(fout);
 	return 0;
 }
+//check of connection..
