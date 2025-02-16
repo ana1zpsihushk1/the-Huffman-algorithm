@@ -1,19 +1,41 @@
 #ifndef HUFFMAN
 #define HUFFMAN
 
-#define MAX_TREE_SIZE 256
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct Node {
-	char value;
-	int freq;
-	struct Node *left, *right;
+#define ALPHABET 256
+#define MAX_CODE_SIZE 256
+
+typedef struct Node
+{
+    unsigned char symb;
+    unsigned int freq;
+    struct Node* left, * right, * next;
 }NODE;
 
-typedef struct Queue{
-	NODE* nodes[MAX_TREE_SIZE];
-	int size;
-}QUEUE;
+//Очередь(с приоритетами)
+typedef struct Queue
+{
+    NODE* nodes[ALPHABET];
+    int size;
+} QUEUE;
 
-void readFile(const char* infile);
+// Битовый буфер
+typedef union bit2char
+{
+    char symb;
+    struct bit
+    {
+        unsigned b1 : 1;
+        unsigned b2 : 1;
+        unsigned b3 : 1;
+        unsigned b4 : 1;
+        unsigned b5 : 1;
+        unsigned b6 : 1;
+        unsigned b7 : 1;
+        unsigned b8 : 1;
+    } mbit;
+}BIT2CHAR;
 
 #endif
