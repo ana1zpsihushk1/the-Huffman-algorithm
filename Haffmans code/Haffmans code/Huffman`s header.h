@@ -38,4 +38,9 @@ typedef union bit2char
     } mbit;
 }BIT2CHAR;
 
+// Очередь (с приоритетами)
+QUEUE* createQueue();
+void enQueue(QUEUE* queue, NODE* node);
+NODE* deQueue(QUEUE* queue);
+
 #endif
