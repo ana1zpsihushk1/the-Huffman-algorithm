@@ -31,3 +31,66 @@ NODE* deQueue(QUEUE* queue) // Извлечение узла с наименьшей частотой из очереди
     queue->size--;
     return min_node;
 }
+
+NODE* createNode(unsigned char symb, unsigned int freq) // Создание узла
+{
+    NODE* node = (NODE*)malloc(sizeof(NODE));
+    node->symb = symb;
+    node->freq = freq;
+    node->left = node->right = NULL;
+    node->next = NULL;
+    return node;
+}
+
+NODE* MakeNodeFromNode(NODE* left, NODE* right) // Объединение узлов
+{
+    NODE* parent = createNode(0, left->freq + right->freq);
+    parent->left = left;
+    parent->right = right;
+    return parent;
+}
+
+// Добавление в список
+void Add2List(NODE** head, NODE* newNode)
+{
+    if (!newNode)
+    {
+        return;
+    }
+    if (*head == NULL || newNode->freq < (*head)->freq)
+    {
+        newNode->next = *head;
+        *head = newNode;
+        return;
+    }
+    NODE* current = *head;
+    while (current->next && newNode->freq > current->next->freq)
+    {
+        current = current->next;
+    }
+    newNode->next = current->next;
+    current->next = newNode;
+}
+
+// Построение дерева
+NODE* buildTree(int* freq)
+{
+    NODE* head = NULL;
+    for (int i = 0; i < ALPHABET; i++)
+    {
+        if (freq[i] > 0)
+        {
+            NODE* node = createNode((unsigned char)i, freq[i]);
+            Add2List(&head, node);
+        }
+    }
+    while (head && head->next)
+    {
+        NODE* left = head;
+        NODE* right = head->next;
+        head = right->next;
+        NODE* parent = MakeNodeFromNode(left, right);
+        Add2List(&head, parent);
+    }
+    return head;
+}
