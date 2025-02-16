@@ -44,9 +44,9 @@ void enQueue(QUEUE* queue, NODE* node);
 NODE* deQueue(QUEUE* queue);
 
 // Дерево Хаффмана
-NODE* buildTree(int* freq);
 NODE* createNode(unsigned char symb, unsigned int freq);
 NODE* MakeNodeFromNode(NODE* left, NODE* right);
 void Add2List(NODE** head, NODE* newNode);
+NODE* buildTree(int* freq);
 
 #endif
