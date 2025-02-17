@@ -119,6 +119,11 @@ void generateHuffmanCodes(NODE* root, char codes[ALPHABET][MAX_CODE_SIZE], char*
 // Кодирование файла побитово
 void encodeFile(FILE* inputFile, FILE* outputFile, char codes[ALPHABET][MAX_CODE_SIZE])
 {
+    /*int ch;
+    while ((ch = fgetc(inputFile)) != EOF)
+    {
+        fputs(codes[ch], outputFile);
+    }*/
     BIT2CHAR bitBuff = { 0 };
     int bitCnt = 0, ch;
     while ((ch = fgetc(inputFile)) != EOF)
@@ -141,5 +146,88 @@ void encodeFile(FILE* inputFile, FILE* outputFile, char codes[ALPHABET][MAX_CODE
     if (bitCnt > 0)
     {
         fputc(bitBuff.symb, outputFile);
+    }
+}
+
+// Декодирование файла
+void decodeFile(FILE* inputFile, FILE* outputFile, NODE* root)
+{
+    /*NODE* current = root;
+    int ch;
+    while ((ch = fgetc(inputFile)) != EOF) {
+        if (ch == '0') {
+            current = current->left;
+        }
+        else if (ch == '1') {
+            current = current->right;
+        }
+
+        if (!current->left && !current->right) {
+            fputc(current->symb, outputFile);
+            current = root;
+        }
+    }*/
+    NODE* current = root;
+    int ch;
+    while ((ch = fgetc(inputFile)) != EOF)
+    {
+        BIT2CHAR bitBuffer;
+        bitBuffer.symb = ch;
+
+        for (int i = 7; i >= 0; i--)
+        {
+            current = (bitBuffer.symb & (1 << i)) ? current->right : current->left;
+            if (!current->left && !current->right)
+            {
+                fputc(current->symb, outputFile);
+                current = root;
+            }
+        }
+    }
+}
+
+void loadCodesFromFile(char codes[ALPHABET][MAX_CODE_SIZE], const char* filename)
+{
+    FILE* file = fopen(filename, "r");
+    if (!file)
+    {
+        fprintf(stderr, "Error: cannot open codes file\n");
+        exit(1);
+    }
+    unsigned char symbol;
+    char code[MAX_CODE_SIZE];
+    while (fscanf(file, "%c %s\n", &symbol, code) == 2)
+    {
+        strcpy(codes[symbol], code);
+    }
+    fclose(file);
+}
+
+void saveCodesToFile(const char codes[ALPHABET][MAX_CODE_SIZE], const char* filename)
+{
+    FILE* file = fopen(filename, "w");
+    if (!file)
+    {
+        fprintf(stderr, "Error: Could not open %s\n", filename);
+        return;
+    }
+    for (int i = 0; i < ALPHABET; i++)
+    {
+        if (codes[i][0] != '\0')
+        {
+            fprintf(file, "%c: %s\n", (char)i, codes[i]);
+        }
+    }
+    fclose(file);
+}
+
+// Освобождение памяти дерева
+void freeTree(NODE* root)
+{
+    if (root)
+    {
+        freeTree(root->left);
+        freeTree(root->right);
+        free(root);
     }
 }

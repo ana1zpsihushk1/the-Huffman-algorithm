@@ -52,5 +52,12 @@ NODE* buildTree(int* freq);
 // Кодирование и декодирование
 void generateHuffmanCodes(NODE* root, char codes[ALPHABET][MAX_CODE_SIZE], char* code, int level);
 void encodeFile(FILE* inputFile, FILE* outputFile, char codes[ALPHABET][MAX_CODE_SIZE]);
+void decodeFile(FILE* inputFile, FILE* outputFile, NODE* root);
+
+void loadCodesFromFile(char codes[ALPHABET][MAX_CODE_SIZE], const char* filename);
+void saveCodesToFile(const char codes[ALPHABET][MAX_CODE_SIZE], const char* filename);
+
+// Освобождение памяти
+void freeTree(NODE* root);
 
 #endif
