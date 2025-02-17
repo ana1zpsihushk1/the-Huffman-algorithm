@@ -2,6 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Huffman`s header.h"
+#include <time.h>
+
+void measureExecutionTime(void (*func)())
+{
+    clock_t start_time = clock();
+    func();
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("Time: %f seconds\n", time_taken);
+}
+
+void runMain()
+{
+    // Функция, время которой измеряем
+}
 
 int main()
 {
@@ -22,6 +37,8 @@ int main()
         freq[(unsigned char)fgetc(fin)]++;
     }
     fclose(fin);
+
+    //measureExecutionTime(runMain);
 
     // Создаем дерево
     NODE* root = buildTree(freq);
