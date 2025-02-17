@@ -49,4 +49,8 @@ NODE* MakeNodeFromNode(NODE* left, NODE* right);
 void Add2List(NODE** head, NODE* newNode);
 NODE* buildTree(int* freq);
 
+// Кодирование и декодирование
+void generateHuffmanCodes(NODE* root, char codes[ALPHABET][MAX_CODE_SIZE], char* code, int level);
+void encodeFile(FILE* inputFile, FILE* outputFile, char codes[ALPHABET][MAX_CODE_SIZE]);
+
 #endif

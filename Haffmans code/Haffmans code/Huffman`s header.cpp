@@ -94,3 +94,52 @@ NODE* buildTree(int* freq)
     }
     return head;
 }
+
+// Генерация кодов Хаффмана
+void generateHuffmanCodes(NODE* root, char codes[ALPHABET][MAX_CODE_SIZE], char* code, int level)
+{
+    if (!root)
+    {
+        return;
+    }
+    if (!root->left && !root->right)
+    {
+        code[level] = '\0';
+        strcpy(codes[root->symb], code);
+    }
+    else
+    {
+        code[level] = '0';
+        generateHuffmanCodes(root->left, codes, code, level + 1);
+        code[level] = '1';
+        generateHuffmanCodes(root->right, codes, code, level + 1);
+    }
+}
+
+// Кодирование файла побитово
+void encodeFile(FILE* inputFile, FILE* outputFile, char codes[ALPHABET][MAX_CODE_SIZE])
+{
+    BIT2CHAR bitBuff = { 0 };
+    int bitCnt = 0, ch;
+    while ((ch = fgetc(inputFile)) != EOF)
+    {
+        for (char* p = codes[ch]; *p; p++)
+        {
+            if (*p == '1')
+            {
+                bitBuff.symb |= (1 << (7 - bitCnt));
+            }
+            bitCnt++;
+            if (bitCnt == 8)
+            {
+                fputc(bitBuff.symb, outputFile);
+                bitBuff.symb = 0;
+                bitCnt = 0;
+            }
+        }
+    }
+    if (bitCnt > 0)
+    {
+        fputc(bitBuff.symb, outputFile);
+    }
+}
