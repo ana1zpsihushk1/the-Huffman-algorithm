@@ -16,7 +16,7 @@ void measureExecutionTime(void (*func)(), const char* description)
 void encode()
 {
     int freq[ALPHABET] = { 0 };
-    FILE* fin = fopen("20mb-examplefile-com.txt", "rb");
+    FILE* fin = fopen("Games_of_Thrones.txt", "rb"); //********************
     fseek(fin, 0L, SEEK_END);
     long int length = ftell(fin);
     fseek(fin, 0, SEEK_SET);
@@ -31,7 +31,7 @@ void encode()
     char tempCode[MAX_CODE_SIZE];
     generateHuffmanCodes(root, codes, tempCode, 0);
 
-    fin = fopen("20mb-examplefile-com.txt", "rb");
+    fin = fopen("Games_of_Thrones.txt", "rb"); ///**********************
     FILE* fout = fopen("encoded.bin", "wb");
     encodeFile(fin, fout, codes);
     fclose(fin);
