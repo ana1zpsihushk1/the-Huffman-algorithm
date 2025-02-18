@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Base (main).cpp" />
     <ClCompile Include="Huffman`s header.cpp" />
+    <ClCompile Include="Main_for_research.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Huffman`s header.h" />
