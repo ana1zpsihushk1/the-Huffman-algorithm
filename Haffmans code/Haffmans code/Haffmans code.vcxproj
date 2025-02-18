@@ -128,8 +128,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Base (main).cpp" />
     <ClCompile Include="Huffman`s header.cpp" />
+    <ClCompile Include="Main main.cpp" />
     <ClCompile Include="Main_for_research.cpp" />
   </ItemGroup>
   <ItemGroup>
