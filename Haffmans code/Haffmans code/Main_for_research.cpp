@@ -1,4 +1,4 @@
-/*#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,7 +50,7 @@ void decode(const char* filename, int* freq)
 int main()
 {
     int freq[ALPHABET] = { 0 };
-    const char* filename = "war_and_peace.txt";
+    const char* filename = "20mb-examplefile-com.txt";
     FILE* fin = fopen(filename, "rb");
     if (!fin) 
     {
@@ -71,4 +71,3 @@ int main()
     return 0;
 }
 
-*/
