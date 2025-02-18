@@ -4,31 +4,19 @@
 #include "Huffman`s header.h"
 #include <time.h>
 
-void measureExecutionTime(void (*func)())
+void measureExecutionTime(void (*func)(), const char* description)
 {
     clock_t start_time = clock();
     func();
     clock_t end_time = clock();
     double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-    printf("Time: %f seconds\n", time_taken);
+    printf("%s time: %f seconds\n", description, time_taken);
 }
 
-void runMain()
-{
-    // Функция, время которой измеряем
-}
-
-int main()
+void encode()
 {
     int freq[ALPHABET] = { 0 };
-
-    // Читаем частоты символов
-    FILE* fin = fopen("input.txt", "rb");
-    if (!fin) {
-        fprintf(stderr, "Can't open input file\n");
-        return -1;
-    }
-
+    FILE* fin = fopen("20mb-examplefile-com.txt", "rb");
     fseek(fin, 0L, SEEK_END);
     long int length = ftell(fin);
     fseek(fin, 0, SEEK_SET);
@@ -38,34 +26,46 @@ int main()
     }
     fclose(fin);
 
-    //measureExecutionTime(runMain);
-
-    // Создаем дерево
     NODE* root = buildTree(freq);
-    if (!root) {
-        fprintf(stderr, "Error: failed to build Huffman tree\n");
-        return -1;
-    }
-
-    // Генерируем коды
     char codes[ALPHABET][MAX_CODE_SIZE] = { 0 };
     char tempCode[MAX_CODE_SIZE];
-    //generateHuffmanCodes(root, codes, tempCode, 0);
+    generateHuffmanCodes(root, codes, tempCode, 0);
 
-    // Кодируем файл
-    fin = fopen("input.txt", "rb");
-    FILE* fout = fopen("encoded.txt", "wb"); //было bin
+    fin = fopen("20mb-examplefile-com.txt", "rb");
+    FILE* fout = fopen("encoded.bin", "wb");
     encodeFile(fin, fout, codes);
     fclose(fin);
     fclose(fout);
 
-    // Декодируем файл
-    fin = fopen("encoded.txt", "rb");
-    fout = fopen("decoded.txt", "wb");
-    //decodeFile(fin, fout, root);
+    saveCodesToFile(codes, "codes.txt");
+    freeTree(root);
+}
+
+void decode()
+{
+    char loadedCodes[ALPHABET][MAX_CODE_SIZE] = { 0 };
+    loadCodesFromFile(loadedCodes, "codes.txt");
+
+    int freq[ALPHABET] = { 0 };
+    for (int i = 0; i < ALPHABET; i++) {
+        if (loadedCodes[i][0] != '\0') {
+            freq[i] = 1;
+        }
+    }
+    NODE* root = buildTree(freq);
+
+    FILE* fin = fopen("encoded.bin", "rb");
+    FILE* fout = fopen("decoded.txt", "wb");
+    decodeFile(fin, fout, root);
     fclose(fin);
     fclose(fout);
 
     freeTree(root);
+}
+
+int main()
+{
+    measureExecutionTime(encode, "Encoding");
+    measureExecutionTime(decode, "Decoding");
     return 0;
 }
