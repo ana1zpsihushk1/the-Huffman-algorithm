@@ -39,7 +39,7 @@ void decode(const char* filename, int* freq)
     generateHuffmanCodes(root, codes, tempCode, 0);
 
     FILE* f = fopen("encoded.bin", "rb");
-    FILE* fout = fopen("decoded.txt", "wb");
+    FILE* fout = fopen("decoded.mov", "wb"); ///
     decodeFile(f, fout, root);
     fclose(f);
     fclose(fout);
@@ -50,7 +50,7 @@ void decode(const char* filename, int* freq)
 int main()
 {
     int freq[ALPHABET] = { 0 };
-    const char* filename = "20mb-examplefile-com.txt";
+    const char* filename = "42 MB.mov";
     FILE* fin = fopen(filename, "rb");
     if (!fin) 
     {
