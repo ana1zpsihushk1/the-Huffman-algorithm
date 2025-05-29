@@ -11,7 +11,8 @@ int main()
     cout << "Enter mode (compress / decompress): ";
     cin >> mode;
 
-    if (mode == "compress") {
+    if (mode == "compress") 
+    {
         string inputFile, outputFile, codeFile;
         cout << "Enter input file to compress: ";
         cin >> inputFile;
@@ -27,7 +28,8 @@ int main()
 
         cout << "Compression complete.\n";
     }
-    else if (mode == "decompress") {
+    else if (mode == "decompress") 
+    {
         string encodedFile, outputFile, codeFile;
         cout << "Enter encoded file: ";
         cin >> encodedFile;
@@ -42,9 +44,9 @@ int main()
 
         cout << "Decompression complete.\n";
     }
-    else {
+    else 
+    {
         cerr << "Invalid mode.\n";
     }
-
     return 0;
 }
