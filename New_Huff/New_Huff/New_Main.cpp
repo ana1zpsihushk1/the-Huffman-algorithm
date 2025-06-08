@@ -9,6 +9,8 @@ int main()
     Huffman huffman;
     string mode;
     cout << "Enter mode (compress / decompress): ";
+    cout << endl << "All files must be .txt!" << endl;
+    cout << endl << "Enter the path to file" << endl;
     cin >> mode;
 
     if (mode == "compress") 
