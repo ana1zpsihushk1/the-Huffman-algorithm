@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+/*#define _CRT_SECURE_NO_WARNINGS
 #include "Huff.h"
 #include <string.h>
 #include <stdio.h>
@@ -53,4 +53,4 @@ int main()
 
     freeTree(root);
     return 0;
-}
+}*/
